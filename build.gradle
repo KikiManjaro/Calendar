@@ -24,9 +24,7 @@ dependencies {
     compile 'mysql:mysql-connector-java:5.0.2'
 }
 
-test {
-    useJUnitPlatform()
-}
+def allTestCoverageFile = "${rootProject.buildDir}/jacoco/allTestCoverage.exec"
 
 sonarqube {
     properties {
@@ -36,12 +34,9 @@ sonarqube {
         properties["sonar.language"] = "java"
         properties["sonar.dynamicAnalysis"] = "reuseReports"
         properties["sonar.java.coveragePlugin"] = "jacoco"
-        properties["sonar.jacoco.reportPaths"] = "C:/Users/kylia/Documents/Kylian/Projet Cnam Java/Calendar/build/jacoco/test.exec"
-        property "sonar.jacoco.reportPaths", allTestCoverageFile
+        properties["sonar.jacoco.reportPaths"] = allTestCoverageFile
     }
 }
-
-def allTestCoverageFile = "${rootProject.buildDir}/jacoco/allTestCoverage.exec"
 
 task jacocoMerge(type: JacocoMerge, group: 'verification') {
     destinationFile = file(allTestCoverageFile)
@@ -49,6 +44,7 @@ task jacocoMerge(type: JacocoMerge, group: 'verification') {
 }
 
 test {
+    useJUnitPlatform()
     finalizedBy jacocoTestReport
     finalizedBy jacocoMerge
 }
