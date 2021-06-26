@@ -1,0 +1,26 @@
+plugins {
+    id 'java'
+}
+
+group 'com.kikimanjaro'
+version '1.0-SNAPSHOT'
+
+compileJava.options.encoding = "UTF-8"
+compileTestJava.options.encoding = "UTF-8"
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.0-M1'
+    testImplementation 'org.junit.jupiter:junit-jupiter-params:5.8.0-M1'
+    testImplementation 'org.mockito:mockito-all:1.10.19'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.0-M1'
+
+}
+
+test {
+    useJUnitPlatform()
+}
+
