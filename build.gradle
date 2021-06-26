@@ -1,5 +1,7 @@
 plugins {
     id 'java'
+    id "org.sonarqube" version "3.0"
+    id 'jacoco'
 }
 
 group 'com.kikimanjaro'
@@ -24,5 +26,37 @@ dependencies {
 
 test {
     useJUnitPlatform()
+}
+
+sonarqube {
+    properties {
+        properties["sonar.host.url"] = "http://localhost:9000"
+        properties["sonar.login"] = "0f243dfbd7a4b94bece782f745d28a095bf1aaf9"
+        properties["sonar.binaries"] = "C:/Users/kylia/Documents/Kylian/Projet Cnam Java/Calendar/build/classes"
+        properties["sonar.language"] = "java"
+        properties["sonar.dynamicAnalysis"] = "reuseReports"
+        properties["sonar.java.coveragePlugin"] = "jacoco"
+        properties["sonar.jacoco.reportPaths"] = "C:/Users/kylia/Documents/Kylian/Projet Cnam Java/Calendar/build/jacoco/test.exec"
+        property "sonar.jacoco.reportPaths", allTestCoverageFile
+    }
+}
+
+def allTestCoverageFile = "${rootProject.buildDir}/jacoco/allTestCoverage.exec"
+
+task jacocoMerge(type: JacocoMerge, group: 'verification') {
+    destinationFile = file(allTestCoverageFile)
+    executionData = project.fileTree(dir: '.', include: '**/build/jacoco/test.exec')
+}
+
+test {
+    finalizedBy jacocoTestReport
+    finalizedBy jacocoMerge
+}
+
+jacocoTestReport {
+    dependsOn test
+    reports {
+        xml.enabled true
+    }
 }
 
