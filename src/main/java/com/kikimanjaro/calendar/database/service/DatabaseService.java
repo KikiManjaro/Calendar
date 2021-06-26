@@ -37,7 +37,7 @@ public class DatabaseService implements IDatabaseService {
         connect();
     }
 
-    public Properties loadPropertiesFile() {
+    private Properties loadPropertiesFile() {
         Properties prop = new Properties();
         try (InputStream in = new FileInputStream(propertiesFileName);) {
             prop.load(in);
@@ -69,6 +69,14 @@ public class DatabaseService implements IDatabaseService {
         }
     }
 
+    /**
+     * <p>
+     * Look for Activities with date correspond to timestamp
+     * </p>
+     *
+     * @param timestamp The timestamp corresponding of Activities date's
+     * @return A List of Activities of which date correspond timestamp
+     */
     @Override
     public List<IActivity> getActivitiesFromDate(long timestamp) throws DatabaseConnectionException {
         if (connected) {
@@ -95,6 +103,13 @@ public class DatabaseService implements IDatabaseService {
         }
     }
 
+    /**
+     * <p>Register an Activity in database</p>
+     *
+     * @param date       The date of the Activity
+     * @param annotation The date of the Activity
+     * @param status     The status of the Activity
+     */
     @Override
     public void registerActivity(long date, String annotation, String status) throws DatabaseConnectionException {
         if (connected) {
@@ -115,6 +130,13 @@ public class DatabaseService implements IDatabaseService {
         }
     }
 
+    /**
+     * <p>Update an Activity in database</p>
+     *
+     * @param date       The date of the Activity
+     * @param annotation The date of the Activity
+     * @param status     The status of the Activity
+     */
     @Override
     public void updateActivity(int id, long date, String annotation, String status) throws DatabaseConnectionException {
         if (connected) {
@@ -136,6 +158,13 @@ public class DatabaseService implements IDatabaseService {
         }
     }
 
+    /**
+     * <p>Delete an Activity from database</p>
+     *
+     * @param date       The date of the Activity
+     * @param annotation The date of the Activity
+     * @param status     The status of the Activity
+     */
     @Override
     public void deleteActivity(int id) throws DatabaseConnectionException {
         if (connected) {

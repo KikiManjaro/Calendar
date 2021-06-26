@@ -10,6 +10,11 @@ public class ActivityManagerFrame extends JDialog {
 
     protected ActivityManagerPanel contentPane;
 
+    /**
+     * <p>Constructor</p>
+     *
+     * @param modal A boolean to set the window modal or not
+     */
     public ActivityManagerFrame(boolean modal) {
         super(FrameService.getInstance().getMainFrame());
         setModal(modal);
@@ -24,6 +29,12 @@ public class ActivityManagerFrame extends JDialog {
         setVisible(true);
     }
 
+    /**
+     * <p>Constructor</p>
+     *
+     * @param modal    A boolean to set the window modal or not
+     * @param activity An Activity already registered to manage
+     */
     public ActivityManagerFrame(boolean modal, IActivity activity) {
         super(FrameService.getInstance().getMainFrame());
         setModal(modal);

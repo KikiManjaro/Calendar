@@ -27,6 +27,13 @@ public class ActivityService implements IActivityService {
         timeService = TimeService.getInstance();
     }
 
+    /**
+     * <p>
+     * Get or create an ActivityService
+     * </p>
+     *
+     * @return An ActivityService
+     */
     public static ActivityService getInstance() {
         if (ActivityService.instance == null) {
             ActivityService.instance = new ActivityService();
@@ -34,6 +41,16 @@ public class ActivityService implements IActivityService {
         return ActivityService.instance;
     }
 
+    /**
+     * <p>
+     * Look for Activities with date correspond to day, month and year
+     * </p>
+     *
+     * @param day   The day of the month of the Activity
+     * @param month The month of the year of the Activity
+     * @param year  The year of the Activity
+     * @return A List of Activities of which date correspond to day, month and year
+     */
     @Override
     public List<IActivity> findActivity(int day, int month, int year) {
         try {
@@ -44,6 +61,13 @@ public class ActivityService implements IActivityService {
         }
     }
 
+    /**
+     * <p>
+     * Register an Activity in database
+     * </p>
+     *
+     * @param activity The Activity to register in database
+     */
     @Override
     public void registerActivity(IActivity activity) {
         try {
@@ -53,6 +77,13 @@ public class ActivityService implements IActivityService {
         }
     }
 
+    /**
+     * <p>
+     * Update an Activity in database
+     * </p>
+     *
+     * @param activity The Activity to update in database
+     */
     @Override
     public void updateActivity(IActivity activity) {
         try {
@@ -63,6 +94,13 @@ public class ActivityService implements IActivityService {
         }
     }
 
+    /**
+     * <p>
+     * Delete an Activity from database
+     * </p>
+     *
+     * @param activity The Activity to delete from database
+     */
     @Override
     public void deleteActivity(IActivity activity) {
         try {
@@ -72,6 +110,14 @@ public class ActivityService implements IActivityService {
         }
     }
 
+    /**
+     * <p>
+     * Get the color of an ActivityStatus
+     * </p>
+     *
+     * @param status The ActivityStatus associated with a color
+     * @return The Color corresponding to the ActivityStatus
+     */
     @Override
     public Color getColorFromStatus(ActivityStatus status) {
         switch (status) {

@@ -12,6 +12,11 @@ public class ActivityPanel extends JPanel {
     protected JLabel annotationLabel;
     protected transient IActivity activity;
 
+    /**
+     * <p>Constructor</p>
+     *
+     * @param activity An Activity to show
+     */
     public ActivityPanel(IActivity activity) {
         this.activity = activity;
         this.setLayout(new BorderLayout());

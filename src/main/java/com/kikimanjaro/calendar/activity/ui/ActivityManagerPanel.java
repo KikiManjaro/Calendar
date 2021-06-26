@@ -41,18 +41,32 @@ public class ActivityManagerPanel extends JPanel {
     protected transient UtilDateModel dateModel;
     protected JPanel buttonPanel;
 
+    /**
+     * <p>
+     * Constructor
+     * </p>
+     *
+     * @param frame The frame to link this panel
+     */
     public ActivityManagerPanel(Dialog frame) {
         this.frame = frame;
         this.setLayout(new GridBagLayout());
-        this.constraints = createGridBagConstraints();
 
         activityService = ActivityService.getInstance();
         frameService = FrameService.getInstance();
         timeService = TimeService.getInstance();
 
+        this.constraints = frameService.getGridBagConstraints();
+
         initPanel();
     }
 
+    /**
+     * <p>Constructor</p>
+     *
+     * @param frame    The frame to link this panel
+     * @param activity An Activity already registered to manage
+     */
     public ActivityManagerPanel(ActivityManagerFrame frame, IActivity activity) {
         this(frame);
         this.activity = activity;
@@ -164,16 +178,5 @@ public class ActivityManagerPanel extends JPanel {
             IActivity newActivity = new Activity(timestamp, annotationTextField.getText(), (ActivityStatus) statusComboBox.getSelectedItem());
             activityService.registerActivity(newActivity);
         }
-    }
-
-    private GridBagConstraints createGridBagConstraints() {
-        GridBagConstraints newConstraints = new GridBagConstraints();
-        newConstraints.fill = GridBagConstraints.BOTH;
-        newConstraints.anchor = GridBagConstraints.CENTER;
-        newConstraints.gridx = 0;
-        newConstraints.gridy = 0;
-        newConstraints.weightx = 1;
-        newConstraints.weighty = 1;
-        return newConstraints;
     }
 }
