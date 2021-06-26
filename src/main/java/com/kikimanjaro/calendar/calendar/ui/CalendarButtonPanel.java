@@ -10,8 +10,8 @@ import java.awt.*;
 
 public class CalendarButtonPanel extends JPanel {
 
-    protected ITimeService timeService;
-    protected FrameService frameService;
+    protected transient ITimeService timeService;
+    protected transient FrameService frameService;
     protected JButton leftYearButton;
     protected JButton leftMonthButton;
     protected JButton newActivityButton;

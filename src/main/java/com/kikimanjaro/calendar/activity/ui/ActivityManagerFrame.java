@@ -14,7 +14,7 @@ public class ActivityManagerFrame extends JDialog {
         super(FrameService.getInstance().getMainFrame());
         setModal(true);
         this.setTitle("Création d'activité");
-        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         this.setPreferredSize(new Dimension(310, 360));
         this.setMinimumSize(new Dimension(310, 360));
         contentPane = new ActivityManagerPanel(this);
@@ -28,7 +28,7 @@ public class ActivityManagerFrame extends JDialog {
         super(FrameService.getInstance().getMainFrame());
         setModal(true);
         this.setTitle("Création d'activité");
-        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         this.setPreferredSize(new Dimension(310, 360));
         this.setMinimumSize(new Dimension(310, 360));
         contentPane = new ActivityManagerPanel(this, activity);

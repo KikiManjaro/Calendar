@@ -10,7 +10,7 @@ import java.awt.event.MouseEvent;
 
 public class ActivityPanel extends JPanel {
     protected JLabel annotationLabel;
-    protected IActivity activity;
+    protected transient IActivity activity;
 
     public ActivityPanel(IActivity activity) {
         this.activity = activity;

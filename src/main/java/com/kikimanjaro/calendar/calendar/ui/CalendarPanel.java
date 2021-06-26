@@ -8,7 +8,7 @@ import java.awt.*;
 
 public class CalendarPanel extends JPanel {
 
-    private final ITimeService timeService;
+    private final transient ITimeService timeService;
 
     public CalendarPanel() {
         timeService = TimeService.getInstance();

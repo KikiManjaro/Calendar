@@ -4,8 +4,10 @@ import com.kikimanjaro.calendar.activity.entity.Activity;
 import com.kikimanjaro.calendar.activity.entity.ActivityStatus;
 import com.kikimanjaro.calendar.activity.entity.IActivity;
 import com.kikimanjaro.calendar.activity.service.ActivityService;
+import com.kikimanjaro.calendar.activity.service.IActivityService;
 import com.kikimanjaro.calendar.activity.util.DateLabelFormatter;
 import com.kikimanjaro.calendar.main.service.FrameService;
+import com.kikimanjaro.calendar.main.service.IFrameService;
 import com.kikimanjaro.calendar.main.service.ITimeService;
 import com.kikimanjaro.calendar.main.service.TimeService;
 import org.jdatepicker.JDatePicker;
@@ -20,12 +22,13 @@ import java.util.Properties;
 
 public class ActivityManagerPanel extends JPanel {
 
-    protected ActivityService activityService;
-    protected FrameService frameService;
-    protected ITimeService timeService;
+    protected transient IActivityService activityService;
+    protected transient IFrameService frameService;
+    protected transient ITimeService timeService;
+    protected transient IActivity activity;
     private GridBagConstraints constraints;
     protected JLabel dateLabel;
-    protected JDatePicker datePicker;
+    protected transient JDatePicker datePicker;
     protected JLabel annotationLabel;
     protected JTextArea annotationTextField;
     protected JLabel statusLabel;
@@ -35,8 +38,7 @@ public class ActivityManagerPanel extends JPanel {
     protected JButton validateButton;
     protected JButton deleteButton;
     protected Dialog frame;
-    protected UtilDateModel dateModel;
-    protected IActivity activity;
+    protected transient UtilDateModel dateModel;
     protected JPanel buttonPanel;
 
     public ActivityManagerPanel(Dialog frame) {
@@ -159,19 +161,19 @@ public class ActivityManagerPanel extends JPanel {
             this.activity.setStatus((ActivityStatus) statusComboBox.getSelectedItem());
             activityService.updateActivity(activity);
         } else {
-            IActivity activity = new Activity(timestamp, annotationTextField.getText(), (ActivityStatus) statusComboBox.getSelectedItem());
-            activityService.registerActivity(activity);
+            IActivity newActivity = new Activity(timestamp, annotationTextField.getText(), (ActivityStatus) statusComboBox.getSelectedItem());
+            activityService.registerActivity(newActivity);
         }
     }
 
     private GridBagConstraints createGridBagConstraints() {
-        GridBagConstraints constraints = new GridBagConstraints();
-        constraints.fill = GridBagConstraints.BOTH;
-        constraints.anchor = GridBagConstraints.CENTER;
-        constraints.gridx = 0;
-        constraints.gridy = 0;
-        constraints.weightx = 1;
-        constraints.weighty = 1;
-        return constraints;
+        GridBagConstraints newConstraints = new GridBagConstraints();
+        newConstraints.fill = GridBagConstraints.BOTH;
+        newConstraints.anchor = GridBagConstraints.CENTER;
+        newConstraints.gridx = 0;
+        newConstraints.gridy = 0;
+        newConstraints.weightx = 1;
+        newConstraints.weighty = 1;
+        return newConstraints;
     }
 }

@@ -39,20 +39,10 @@ public class DatabaseService implements IDatabaseService {
 
     public Properties loadPropertiesFile() {
         Properties prop = new Properties();
-        InputStream in = null;
-        try {
-            in = new FileInputStream(propertiesFileName);
+        try (InputStream in = new FileInputStream(propertiesFileName);) {
             prop.load(in);
         } catch (IOException e) {
             log.error("Cant load properties file", e);
-        } finally {
-            if (in != null) {
-                try {
-                    in.close();
-                } catch (IOException e) {
-                    log.error("Can't close stream of properties", e);
-                }
-            }
         }
         return prop;
     }
@@ -97,13 +87,7 @@ public class DatabaseService implements IDatabaseService {
             } catch (SQLException e) {
                 log.error("Can't find activities", e);
             } finally {
-                if (preparedStatement != null) {
-                    try {
-                        preparedStatement.close();
-                    } catch (SQLException throwables) {
-                        log.error("Can't close statement", throwables);
-                    }
-                }
+                closeStatement(preparedStatement);
             }
             return activityList;
         } else {
@@ -124,13 +108,7 @@ public class DatabaseService implements IDatabaseService {
             } catch (SQLException e) {
                 log.error("Can't register activity", e);
             } finally {
-                if (preparedStatement != null) {
-                    try {
-                        preparedStatement.close();
-                    } catch (SQLException throwables) {
-                        log.error("Can't close statement", throwables);
-                    }
-                }
+                closeStatement(preparedStatement);
             }
         } else {
             throw new DatabaseConnectionException();
@@ -151,13 +129,7 @@ public class DatabaseService implements IDatabaseService {
             } catch (SQLException e) {
                 log.error("Can't update activity", e);
             } finally {
-                if (preparedStatement != null) {
-                    try {
-                        preparedStatement.close();
-                    } catch (SQLException throwables) {
-                        log.error("Can't close statement", throwables);
-                    }
-                }
+                closeStatement(preparedStatement);
             }
         } else {
             throw new DatabaseConnectionException();
@@ -175,16 +147,20 @@ public class DatabaseService implements IDatabaseService {
             } catch (SQLException e) {
                 log.error("Can't delete activity", e);
             } finally {
-                if (preparedStatement != null) {
-                    try {
-                        preparedStatement.close();
-                    } catch (SQLException throwables) {
-                        log.error("Can't close statement", throwables);
-                    }
-                }
+                closeStatement(preparedStatement);
             }
         } else {
             throw new DatabaseConnectionException();
+        }
+    }
+
+    private void closeStatement(PreparedStatement preparedStatement) {
+        if (preparedStatement != null) {
+            try {
+                preparedStatement.close();
+            } catch (SQLException throwables) {
+                log.error("Can't close statement", throwables);
+            }
         }
     }
 }

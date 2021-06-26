@@ -8,7 +8,7 @@ import java.awt.*;
 
 public class MonthYearPanel extends JPanel {
 
-    private final ITimeService timeService;
+    private final transient ITimeService timeService;
 
     public MonthYearPanel() {
         timeService = TimeService.getInstance();
