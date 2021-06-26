@@ -4,23 +4,27 @@ import com.kikimanjaro.calendar.activity.entity.Activity;
 import com.kikimanjaro.calendar.activity.entity.ActivityStatus;
 import com.kikimanjaro.calendar.activity.entity.IActivity;
 import com.kikimanjaro.calendar.database.exception.DatabaseConnectionException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 
 public class DatabaseService implements IDatabaseService {
-    protected boolean connected;
-    protected Connection con;
-    protected Statement stmt;
+
+    protected static Logger log = LoggerFactory.getLogger(DatabaseService.class);
 
     private static DatabaseService instance;
 
-    protected String ipAddress = "127.0.0.1";
-    protected String port = "3306";
-    protected String dbName = "calendar";
-    protected String user = "root";
-    protected String password = "root";
+    protected boolean connected;
+    protected Connection con;
+    protected Statement stmt;
+    protected String propertiesFileName = "jdbc.properties";
 
     public static DatabaseService getInstance() {
         if (instance == null) {
@@ -33,15 +37,44 @@ public class DatabaseService implements IDatabaseService {
         connect();
     }
 
-    protected void connect() {
-        String url = "jdbc:mysql://" + ipAddress + ":" + port + "/" + dbName + "?useTimezone=true&serverTimezone=UTC";
+    public Properties loadPropertiesFile() {
+        Properties prop = new Properties();
+        InputStream in = null;
         try {
-            Class.forName("com.mysql.jdbc.Driver");
-            con = DriverManager.getConnection(url, user, password);
-            stmt = con.createStatement();
-            connected = true;
+            in = new FileInputStream(propertiesFileName);
+            prop.load(in);
+        } catch (IOException e) {
+            log.error("Cant load properties file", e);
+        } finally {
+            if (in != null) {
+                try {
+                    in.close();
+                } catch (IOException e) {
+                    log.error("Can't close stream of properties", e);
+                }
+            }
+        }
+        return prop;
+    }
+
+    protected void connect() {
+        try {
+            Properties prop = loadPropertiesFile();
+            if (!prop.isEmpty()) {
+                String driverClass = prop.getProperty("MYSQLJDBC.driver");
+                String url = prop.getProperty("MYSQLJDBC.url");
+                String username = prop.getProperty("MYSQLJDBC.username");
+                String password = prop.getProperty("MYSQLJDBC.password");
+
+                Class.forName(driverClass);
+                con = DriverManager.getConnection(url, username, password);
+                stmt = con.createStatement();
+                connected = true;
+            } else {
+                connected = false;
+            }
         } catch (ClassNotFoundException | SQLException e) {
-            e.printStackTrace();
+            log.error("Can't connect to database", e);
             connected = false;
         }
     }
@@ -62,13 +95,13 @@ public class DatabaseService implements IDatabaseService {
                 }
                 rs.close();
             } catch (SQLException e) {
-                e.printStackTrace();
+                log.error("Can't find activities", e);
             } finally {
                 if (preparedStatement != null) {
                     try {
                         preparedStatement.close();
                     } catch (SQLException throwables) {
-                        throwables.printStackTrace();
+                        log.error("Can't close statement", throwables);
                     }
                 }
             }
@@ -89,13 +122,13 @@ public class DatabaseService implements IDatabaseService {
                 preparedStatement.setString(3, status);
                 preparedStatement.execute();
             } catch (SQLException e) {
-                e.printStackTrace();
+                log.error("Can't register activity", e);
             } finally {
                 if (preparedStatement != null) {
                     try {
                         preparedStatement.close();
                     } catch (SQLException throwables) {
-                        throwables.printStackTrace();
+                        log.error("Can't close statement", throwables);
                     }
                 }
             }
@@ -116,13 +149,13 @@ public class DatabaseService implements IDatabaseService {
                 preparedStatement.setInt(4, id);
                 preparedStatement.execute();
             } catch (SQLException e) {
-                e.printStackTrace();
+                log.error("Can't update activity", e);
             } finally {
                 if (preparedStatement != null) {
                     try {
                         preparedStatement.close();
                     } catch (SQLException throwables) {
-                        throwables.printStackTrace();
+                        log.error("Can't close statement", throwables);
                     }
                 }
             }
@@ -140,13 +173,13 @@ public class DatabaseService implements IDatabaseService {
                 preparedStatement.setInt(1, id);
                 preparedStatement.execute();
             } catch (SQLException e) {
-                e.printStackTrace();
+                log.error("Can't delete activity", e);
             } finally {
                 if (preparedStatement != null) {
                     try {
                         preparedStatement.close();
                     } catch (SQLException throwables) {
-                        throwables.printStackTrace();
+                        log.error("Can't close statement", throwables);
                     }
                 }
             }

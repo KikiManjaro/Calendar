@@ -15,13 +15,21 @@ repositories {
 }
 
 dependencies {
+    /*******************TEST******************/
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.0-M1'
     testImplementation 'org.junit.jupiter:junit-jupiter-params:5.8.0-M1'
     testImplementation 'org.mockito:mockito-all:1.10.19'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.0-M1'
 
+    /*******************UI******************/
     compile 'org.jdatepicker:jdatepicker:1.3.4'
+
+    /*******************DATABASE******************/
     compile 'mysql:mysql-connector-java:5.0.2'
+
+    /*******************LOG******************/
+    compile 'org.slf4j:slf4j-api:1.7.31'
+    compile 'org.slf4j:slf4j-log4j12:1.7.31'
 }
 
 def allTestCoverageFile = "${rootProject.buildDir}/jacoco/allTestCoverage.exec"
@@ -43,16 +51,16 @@ task jacocoMerge(type: JacocoMerge, group: 'verification') {
     executionData = project.fileTree(dir: '.', include: '**/build/jacoco/test.exec')
 }
 
-test {
-    useJUnitPlatform()
-    finalizedBy jacocoTestReport
-    finalizedBy jacocoMerge
-}
-
 jacocoTestReport {
     dependsOn test
     reports {
         xml.enabled true
     }
+}
+
+test {
+    useJUnitPlatform()
+    finalizedBy jacocoTestReport
+    finalizedBy jacocoMerge
 }
 

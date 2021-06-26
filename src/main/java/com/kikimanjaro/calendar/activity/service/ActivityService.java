@@ -7,12 +7,16 @@ import com.kikimanjaro.calendar.database.service.DatabaseService;
 import com.kikimanjaro.calendar.database.service.IDatabaseService;
 import com.kikimanjaro.calendar.main.service.ITimeService;
 import com.kikimanjaro.calendar.main.service.TimeService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class ActivityService implements IActivityService {
+
+    protected static Logger log = LoggerFactory.getLogger(ActivityService.class);
 
     private final ITimeService timeService;
     protected IDatabaseService databaseService;
@@ -35,7 +39,7 @@ public class ActivityService implements IActivityService {
         try {
             return databaseService.getActivitiesFromDate(timeService.getTimestampFromDate(day, month, year));
         } catch (DatabaseConnectionException e) {
-            e.printStackTrace();
+            log.error("Can't find activities", e);
             return new ArrayList<>();
         }
     }
@@ -45,7 +49,7 @@ public class ActivityService implements IActivityService {
         try {
             databaseService.registerActivity(activity.getDate(), activity.getAnnotation(), activity.getStatus().toString());
         } catch (DatabaseConnectionException e) {
-            e.printStackTrace();
+            log.error("Can't register activity", e);
         }
     }
 
@@ -54,7 +58,8 @@ public class ActivityService implements IActivityService {
         try {
             databaseService.updateActivity(activity.getId(), activity.getDate(), activity.getAnnotation(), activity.getStatus().toString());
         } catch (DatabaseConnectionException e) {
-            e.printStackTrace();
+            log.error("Can't update activity", e);
+
         }
     }
 
@@ -63,7 +68,7 @@ public class ActivityService implements IActivityService {
         try {
             databaseService.deleteActivity(activity.getId());
         } catch (DatabaseConnectionException e) {
-            e.printStackTrace();
+            log.error("Can't delete activity", e);
         }
     }
 

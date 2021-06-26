@@ -17,7 +17,7 @@ class DatabaseServiceTest {
     @BeforeEach
     void setUp() {
         databaseService = DatabaseService.getInstance();
-        databaseService.dbName = "calendar_test";
+        databaseService.propertiesFileName = "jdbc-test.properties";
         databaseService.connect();
     }
 
@@ -31,7 +31,7 @@ class DatabaseServiceTest {
     @Test
     void whenConnectWithWrongCredentials_shouldConnectedBeFalse() {
         DatabaseService databaseService = DatabaseService.getInstance();
-        databaseService.password = "notTheRealPassword";
+        databaseService.propertiesFileName = "jdbc-test-wrongpassword.properties";
         databaseService.connect();
         Assertions.assertFalse(databaseService.connected);
     }
