@@ -26,15 +26,15 @@ public class DatabaseService implements IDatabaseService {
     protected Statement stmt;
     protected String propertiesFileName = "jdbc.properties";
 
+    private DatabaseService() {
+        connect();
+    }
+
     public static DatabaseService getInstance() {
         if (instance == null) {
             instance = new DatabaseService();
         }
         return instance;
-    }
-
-    private DatabaseService() {
-        connect();
     }
 
     private Properties loadPropertiesFile() {
@@ -161,9 +161,7 @@ public class DatabaseService implements IDatabaseService {
     /**
      * <p>Delete an Activity from database</p>
      *
-     * @param date       The date of the Activity
-     * @param annotation The date of the Activity
-     * @param status     The status of the Activity
+     * @param id The id of the Activity
      */
     @Override
     public void deleteActivity(int id) throws DatabaseConnectionException {

@@ -43,6 +43,16 @@ public class Activity implements IActivity {
     }
 
     /**
+     * <p> Set the date of the Activity, this date is a timestamp from 1st of January, 1970 </p>
+     *
+     * @param date The timestamp of the Activity
+     */
+    @Override
+    public void setDate(long date) {
+        this.date = date;
+    }
+
+    /**
      * <p>
      * Get the annotation of the Activity, this annotation is a String representing the comment inside of this Activity
      * </p>
@@ -52,41 +62,6 @@ public class Activity implements IActivity {
     @Override
     public String getAnnotation() {
         return annotation;
-    }
-
-    /**
-     * <p>
-     * Get the status of the Activity, this status is an ActivityStatus representing the state of this Activity
-     * </p>
-     *
-     * @return The status of the Activity
-     */
-    @Override
-    public ActivityStatus getStatus() {
-        return status;
-    }
-
-    /**
-     * <p>
-     * Get the id of the Activity, this id is an int representing the identifier of this Activity,
-     * it's automatically generated after the first entrance in database
-     * </p>
-     *
-     * @return The id of the Activity
-     */
-    @Override
-    public Integer getId() {
-        return id;
-    }
-
-    /**
-     * <p> Set the date of the Activity, this date is a timestamp from 1st of January, 1970 </p>
-     *
-     * @param date The timestamp of the Activity
-     */
-    @Override
-    public void setDate(long date) {
-        this.date = date;
     }
 
     /**
@@ -106,10 +81,35 @@ public class Activity implements IActivity {
      * Get the status of the Activity, this status is an ActivityStatus representing the state of this Activity
      * </p>
      *
+     * @return The status of the Activity
+     */
+    @Override
+    public ActivityStatus getStatus() {
+        return status;
+    }
+
+    /**
+     * <p>
+     * Get the status of the Activity, this status is an ActivityStatus representing the state of this Activity
+     * </p>
+     *
      * @param status The status of the Activity
      */
     @Override
     public void setStatus(ActivityStatus status) {
         this.status = status;
+    }
+
+    /**
+     * <p>
+     * Get the id of the Activity, this id is an int representing the identifier of this Activity,
+     * it's automatically generated after the first entrance in database
+     * </p>
+     *
+     * @return The id of the Activity
+     */
+    @Override
+    public Integer getId() {
+        return id;
     }
 }

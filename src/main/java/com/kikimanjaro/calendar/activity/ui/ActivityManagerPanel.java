@@ -26,20 +26,19 @@ public class ActivityManagerPanel extends JPanel {
     protected transient IFrameService frameService;
     protected transient ITimeService timeService;
     protected transient IActivity activity;
-    private GridBagConstraints constraints;
     protected JLabel dateLabel;
     protected transient JDatePicker datePicker;
     protected JLabel annotationLabel;
     protected JTextArea annotationTextField;
     protected JLabel statusLabel;
     protected JComboBox<ActivityStatus> statusComboBox;
-
     protected JButton cancelButton;
     protected JButton validateButton;
     protected JButton deleteButton;
     protected Dialog frame;
     protected transient UtilDateModel dateModel;
     protected JPanel buttonPanel;
+    private GridBagConstraints constraints;
 
     /**
      * <p>

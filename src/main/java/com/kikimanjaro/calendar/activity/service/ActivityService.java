@@ -17,10 +17,9 @@ import java.util.List;
 public class ActivityService implements IActivityService {
 
     protected static Logger log = LoggerFactory.getLogger(ActivityService.class);
-
+    static ActivityService instance;
     private final ITimeService timeService;
     protected IDatabaseService databaseService;
-    static ActivityService instance;
 
     private ActivityService() {
         databaseService = DatabaseService.getInstance();

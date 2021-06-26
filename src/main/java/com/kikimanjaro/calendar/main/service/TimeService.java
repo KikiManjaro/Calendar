@@ -8,9 +8,9 @@ import java.util.TimeZone;
 
 public class TimeService implements ITimeService {
     private static TimeService instance;
-    protected LocalDate localDate;
     private final String[] dayOfWeek = {"Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi", "Dimanche"};
     private final String[] months = {"Janvier", "Février", "Mars", "Avril", "Mai", "Juin", "Juillet", "Aout", "Septembre", "Octobre", "Novembre", "Décembre"};
+    protected LocalDate localDate;
 
     private TimeService() {
         localDate = new Date().toInstant().atZone(ZoneId.of("GMT")).toLocalDate();

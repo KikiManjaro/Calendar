@@ -18,18 +18,6 @@ public enum ActivityStatus {
 
     /**
      * <p>
-     * Get a String from a corresponding ActivityStatus
-     * </p>
-     *
-     * @return The String corresponding to the ActivityStatus
-     */
-    @Override
-    public String toString() {
-        return this.stringValue;
-    }
-
-    /**
-     * <p>
      * Create an ActivityStatus from a corresponding String,
      * if none of the ActivityStatus is found it will return NOT_DEFINED
      * </p>
@@ -51,5 +39,17 @@ public enum ActivityStatus {
         } else {
             return NOT_DEFINED;
         }
+    }
+
+    /**
+     * <p>
+     * Get a String from a corresponding ActivityStatus
+     * </p>
+     *
+     * @return The String corresponding to the ActivityStatus
+     */
+    @Override
+    public String toString() {
+        return this.stringValue;
     }
 }

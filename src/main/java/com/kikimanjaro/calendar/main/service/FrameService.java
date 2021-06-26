@@ -34,7 +34,7 @@ public class FrameService implements IFrameService {
     /**
      * <p>Register the MainFrame in this service</p>
      *
-     * @param frame
+     * @param frame The MainFrame to register
      */
     @Override
     public void registerMainFrame(MainFrame frame) {
