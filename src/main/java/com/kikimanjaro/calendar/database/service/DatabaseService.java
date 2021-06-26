@@ -53,7 +53,7 @@ public class DatabaseService implements IDatabaseService {
             ResultSet rs;
             PreparedStatement preparedStatement = null;
             try {
-                preparedStatement = con.prepareStatement("SELECT id, date, annotation, status FROM " + dbName + ".activity WHERE date = ?;");
+                preparedStatement = con.prepareStatement("SELECT id, date, annotation, status FROM activity WHERE date = ?;");
                 preparedStatement.setLong(1, timestamp);
                 rs = preparedStatement.executeQuery();
                 while (rs.next()) {
@@ -83,7 +83,7 @@ public class DatabaseService implements IDatabaseService {
         if (connected) {
             PreparedStatement preparedStatement = null;
             try {
-                preparedStatement = con.prepareStatement("INSERT INTO " + dbName + ".activity (date, annotation, status) VALUES (?,?,?)");
+                preparedStatement = con.prepareStatement("INSERT INTO activity (date, annotation, status) VALUES (?,?,?)");
                 preparedStatement.setLong(1, date);
                 preparedStatement.setString(2, annotation);
                 preparedStatement.setString(3, status);
@@ -109,7 +109,7 @@ public class DatabaseService implements IDatabaseService {
         if (connected) {
             PreparedStatement preparedStatement = null;
             try {
-                preparedStatement = con.prepareStatement("UPDATE " + dbName + ".activity SET date = ?, annotation = ?, status = ? WHERE id = ?");
+                preparedStatement = con.prepareStatement("UPDATE activity SET date = ?, annotation = ?, status = ? WHERE id = ?");
                 preparedStatement.setLong(1, date);
                 preparedStatement.setString(2, annotation);
                 preparedStatement.setString(3, status);
@@ -136,7 +136,7 @@ public class DatabaseService implements IDatabaseService {
         if (connected) {
             PreparedStatement preparedStatement = null;
             try {
-                preparedStatement = con.prepareStatement("DELETE FROM " + dbName + ".activity WHERE id = ?");
+                preparedStatement = con.prepareStatement("DELETE FROM activity WHERE id = ?");
                 preparedStatement.setInt(1, id);
                 preparedStatement.execute();
             } catch (SQLException e) {
