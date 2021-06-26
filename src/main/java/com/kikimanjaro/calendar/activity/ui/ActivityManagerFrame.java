@@ -10,9 +10,9 @@ public class ActivityManagerFrame extends JDialog {
 
     protected ActivityManagerPanel contentPane;
 
-    public ActivityManagerFrame() {
+    public ActivityManagerFrame(boolean modal) {
         super(FrameService.getInstance().getMainFrame());
-        setModal(true);
+        setModal(modal);
         this.setTitle("Création d'activité");
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         this.setPreferredSize(new Dimension(310, 360));
@@ -24,9 +24,9 @@ public class ActivityManagerFrame extends JDialog {
         setVisible(true);
     }
 
-    public ActivityManagerFrame(IActivity activity) {
+    public ActivityManagerFrame(boolean modal, IActivity activity) {
         super(FrameService.getInstance().getMainFrame());
-        setModal(true);
+        setModal(modal);
         this.setTitle("Création d'activité");
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         this.setPreferredSize(new Dimension(310, 360));

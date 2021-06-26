@@ -22,7 +22,7 @@ public class ActivityPanel extends JPanel {
         this.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                new ActivityManagerFrame(activity);
+                new ActivityManagerFrame(true, activity);
             }
         });
     }

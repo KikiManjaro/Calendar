@@ -40,7 +40,7 @@ public class CalendarButtonPanel extends JPanel {
         );
 
         newActivityButton = new JButton("Nouvelle Activité");
-        newActivityButton.addActionListener(e -> new ActivityManagerFrame());
+        newActivityButton.addActionListener(e -> new ActivityManagerFrame(true));
 
         rightMonthButton = new JButton(">");
         rightMonthButton.addActionListener(e -> {

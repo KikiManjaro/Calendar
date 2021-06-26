@@ -18,6 +18,7 @@ class ActivityManagerPanelTest {
 
     private ActivityManagerFrame activityManagerFrame;
     private ActivityManagerPanel activityManagerPanel;
+    private ActivityManagerPanel activityManagerPanelWithoutActivity;
     private ITimeService timeService;
     private ActivityService activityService;
     private FrameService frameService;
@@ -29,12 +30,28 @@ class ActivityManagerPanelTest {
         activityManagerFrame = Mockito.mock(ActivityManagerFrame.class);
         activity = new Activity(891561600000L, "toto", ActivityStatus.TEST);
         activityManagerPanel = new ActivityManagerPanel(activityManagerFrame, activity);
+        activityManagerPanelWithoutActivity = new ActivityManagerPanel(activityManagerFrame);
         timeService = Mockito.mock(TimeService.class);
         activityService = Mockito.mock(ActivityService.class);
         frameService = Mockito.mock(FrameService.class);
         activityManagerPanel.timeService = timeService;
         activityManagerPanel.activityService = activityService;
         activityManagerPanel.frameService = frameService;
+    }
+
+    @Test
+    void whenInitWithoutActivity_shouldDateModelNotHaveActivityDate() {
+        Assertions.assertTrue(Math.abs(new Date().getTime() - activityManagerPanelWithoutActivity.dateModel.getValue().getTime()) < 1000);
+    }
+
+    @Test
+    void whenInitWithoutActivity_shouldAnnotationTextFieldNotHaveActivityAnnotation() {
+        Assertions.assertEquals("", activityManagerPanelWithoutActivity.annotationTextField.getText());
+    }
+
+    @Test
+    void whenInitWithoutActivity_shouldStatusComboBoxNotHaveActivityStatus() {
+        Assertions.assertEquals("En définition", activityManagerPanelWithoutActivity.statusComboBox.getSelectedItem().toString());
     }
 
     @Test
