@@ -54,7 +54,7 @@ public class CalendarButtonPanel extends JPanel {
             frameService.refresh();
         });
 
-        GridBagConstraints constraints = getGridBagConstraints();
+        GridBagConstraints constraints = frameService.getGridBagConstraints();
         this.add(leftYearButton, constraints);
         constraints.gridx += 1;
         this.add(leftMonthButton, constraints);
@@ -64,16 +64,5 @@ public class CalendarButtonPanel extends JPanel {
         this.add(rightMonthButton, constraints);
         constraints.gridx += 1;
         this.add(rightYearButton, constraints);
-    }
-
-    private GridBagConstraints getGridBagConstraints() {
-        GridBagConstraints constraints = new GridBagConstraints();
-        constraints.fill = GridBagConstraints.BOTH;
-        constraints.anchor = GridBagConstraints.CENTER;
-        constraints.gridx = 0;
-        constraints.gridy = 0;
-        constraints.weightx = 1;
-        constraints.weighty = 1;
-        return constraints;
     }
 }
