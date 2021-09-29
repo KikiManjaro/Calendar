@@ -7,7 +7,7 @@ Calendar is a CNAM school project made in 2021 for NFA019 : Projet systèmes d'i
 
 This project is made using Java, SWING, Gradle and  MySQL.
 
-Nedded Files can be founds in "requisite".
+Needed files can be founds in "requisite".
 
 ## Contributing
 
